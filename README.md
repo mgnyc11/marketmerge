@@ -1,4 +1,4 @@
-# MarketSperg v1.0 📊
+# MarketMerge v1.0 📊
 
 A TradingView Pine Script indicator that replicates the MarketSurge/IBD data panel as a chart overlay. Get CANSLIM ratings, earnings data, relative strength, and a full buy checklist — right on your chart.
 
@@ -47,7 +47,7 @@ Score: **BUY ZONE** (5-6) / **WATCH** (3-4) / **AVOID** (0-2)
 
 1. Open [TradingView](https://www.tradingview.com) and go to any chart
 2. Click **Pine Editor** (bottom panel)
-3. Copy the contents of `marketsperg_v1.0.pine`
+3. Copy the contents of `marketmerge_v1.0.pine`
 4. Paste into the Pine Editor
 5. Click **Add to Chart**
 
@@ -113,4 +113,3 @@ MIT License — see [LICENSE](LICENSE)
 
 Inspired by [MarketSurge](https://marketsurge.investors.com/) by Investor's Business Daily and William O'Neil's CANSLIM methodology.
 
-Built with 🤖 by Wilson & Michael.
