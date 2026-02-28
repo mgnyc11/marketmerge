@@ -11,7 +11,7 @@ string grp_display = "Display"
 bool showRatings    = input.bool(true, "Show Ratings Panel", group=grp_display)
 bool showEPS        = input.bool(true, "Show EPS Table", group=grp_display)
 bool showFinancials = input.bool(true, "Show Financials", group=grp_display)
-string panelSize    = input.string("small", "Text Size", options=["tiny", "small", "normal"], group=grp_display)
+string panelSize    = input.string("tiny", "Text Size", options=["tiny", "small", "normal"], group=grp_display)
 
 string grp_rs = "Relative Strength & Benchmark"
 string rsBenchmark = input.symbol("SPY", "RS Benchmark", group=grp_rs)
@@ -29,12 +29,12 @@ bool showEPSmarkers = input.bool(true, "Show EPS Markers on Chart")
 // === TEXT SIZE ===
 var string txtSize = panelSize == "tiny" ? size.tiny : panelSize == "small" ? size.small : size.normal
 
-// === PANEL COLORS (clean white/light theme) ===
-color bgColor      = color.new(#ffffff, 0)
-color borderColor  = color.new(#d0d0d0, 0)
-color headerBg     = color.new(#f0f0f0, 0)
-color labelColor   = color.new(#666666, 0)
-color valueColor   = color.new(#1a1a1a, 0)
+// === PANEL COLORS (shaded background) ===
+color bgColor      = color.new(#e8e8e8, 0)
+color borderColor  = color.new(#b0b0b0, 0)
+color headerBg     = color.new(#d0d0d0, 0)
+color labelColor   = color.new(#555555, 0)
+color valueColor   = color.new(#111111, 0)
 color greenColor   = color.new(#26a69a, 0)
 color redColor     = color.new(#ef5350, 0)
 color blueColor    = color.new(#2196f3, 0)
@@ -192,9 +192,9 @@ if barstate.islast
     // --- HEADER ---
     float dayChg = ((close - close[1]) / close[1]) * 100
     string chgStr = (dayChg >= 0 ? "+" : "") + str.tostring(dayChg, "#.##") + "%"
-    table.cell(panel, 0, row, tickerName, text_color=valueColor, text_size=size.normal, text_halign=text.align_left, bgcolor=headerBg)
-    table.cell(panel, 1, row, "$" + str.tostring(close, "#.##"), text_color=valueColor, text_size=size.normal, bgcolor=headerBg)
-    table.cell(panel, 2, row, chgStr, text_color=dayChg >= 0 ? greenColor : redColor, text_size=size.normal, bgcolor=headerBg)
+    table.cell(panel, 0, row, tickerName, text_color=valueColor, text_size=size.small, text_halign=text.align_left, bgcolor=headerBg)
+    table.cell(panel, 1, row, "$" + str.tostring(close, "#.##"), text_color=valueColor, text_size=size.small, bgcolor=headerBg)
+    table.cell(panel, 2, row, chgStr, text_color=dayChg >= 0 ? greenColor : redColor, text_size=size.small, bgcolor=headerBg)
     table.cell(panel, 3, row, "", bgcolor=headerBg)
     row += 1
 
@@ -401,7 +401,7 @@ if barstate.islast
     color scoreClr = score >= 5 ? greenColor : score >= 3 ? yellowColor : redColor
     string scoreLabel = score >= 5 ? "BUY ZONE" : score >= 3 ? "WATCH" : "AVOID"
     table.cell(panel, 0, row, "SCORE", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
-    table.cell(panel, 1, row, str.tostring(score) + "/6", text_color=scoreClr, text_size=size.normal, bgcolor=headerBg)
+    table.cell(panel, 1, row, str.tostring(score) + "/6", text_color=scoreClr, text_size=size.small, bgcolor=headerBg)
     table.cell(panel, 2, row, scoreLabel, text_color=scoreClr, text_size=txtSize, bgcolor=headerBg)
     table.cell(panel, 3, row, "", bgcolor=headerBg)
 
