@@ -146,41 +146,35 @@ if barstate.islast
     table.cell(panel, 3, row, "", bgcolor=headerBg)
     row += 1
 
-    table.cell(panel, 0, row, "Vol " + str.tostring(volume / 1e6, "#.#") + "M", text_color=labelColor, text_size=txtSize)
-    table.cell(panel, 1, row, "Avg " + str.tostring(volMA50 / 1e6, "#.#") + "M", text_color=labelColor, text_size=txtSize)
-    table.cell(panel, 2, row, "Off Hi " + fmtPct(offHigh52), text_color=getPctColor(offHigh52), text_size=txtSize)
-    table.cell(panel, 3, row, "ATR " + str.tostring(atrPct, "#.#") + "%", text_color=labelColor, text_size=txtSize)
+    table.cell(panel, 0, row, str.tostring(volume / 1e6, "#.#") + "M", text_color=labelColor, text_size=txtSize)
+    table.cell(panel, 1, row, str.tostring(volMA50 / 1e6, "#.#") + "M", text_color=labelColor, text_size=txtSize)
+    table.cell(panel, 2, row, fmtPct(offHigh52), text_color=getPctColor(offHigh52), text_size=txtSize)
+    table.cell(panel, 3, row, str.tostring(atrPct, "#.#") + "%", text_color=labelColor, text_size=txtSize)
     row += 1
 
     // === COMPANY PROFILE ===
     if showProfile
-        table.cell(panel, 0, row, "── PROFILE ──", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
+        table.cell(panel, 0, row, "─ PROFILE ─", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
         table.cell(panel, 1, row, "", bgcolor=headerBg)
         table.cell(panel, 2, row, "", bgcolor=headerBg)
         table.cell(panel, 3, row, "", bgcolor=headerBg)
         row += 1
 
         string descRaw = syminfo.description
-        string descShort = str.length(descRaw) > 30 ? str.substring(descRaw, 0, 27) + "..." : descRaw
+        string descShort = str.length(descRaw) > 18 ? str.substring(descRaw, 0, 15) + "..." : descRaw
         table.cell(panel, 0, row, descShort, text_color=valueColor, text_size=txtSize)
-        table.cell(panel, 1, row, "", text_size=txtSize)
-        table.cell(panel, 2, row, syminfo.prefix, text_color=labelColor, text_size=txtSize)
-        table.cell(panel, 3, row, syminfo.currency, text_color=labelColor, text_size=txtSize)
-        row += 1
-
-        string secRaw = syminfo.sector
-        string secShort = str.length(secRaw) > 20 ? str.substring(secRaw, 0, 17) + "..." : secRaw
+        table.cell(panel, 1, row, syminfo.prefix, text_color=labelColor, text_size=txtSize)
         float mktCap = not na(sharesOut) ? close * sharesOut : na
         string mktCapStr = na(mktCap) ? "N/A" : mktCap >= 1e12 ? "$" + str.tostring(mktCap / 1e12, "#.##") + "T" : mktCap >= 1e9 ? "$" + str.tostring(mktCap / 1e9, "#.#") + "B" : "$" + str.tostring(mktCap / 1e6, "#.#") + "M"
-        table.cell(panel, 0, row, "Sector", text_color=labelColor, text_size=txtSize)
-        table.cell(panel, 1, row, secShort, text_color=valueColor, text_size=txtSize)
-        table.cell(panel, 2, row, "Mkt Cap", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 2, row, "MCap", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 3, row, mktCapStr, text_color=valueColor, text_size=txtSize)
         row += 1
 
+        string secRaw = syminfo.sector
+        string secShort = str.length(secRaw) > 14 ? str.substring(secRaw, 0, 11) + "..." : secRaw
+        table.cell(panel, 0, row, secShort, text_color=valueColor, text_size=txtSize)
         string indRaw = syminfo.industry
-        string indShort = str.length(indRaw) > 30 ? str.substring(indRaw, 0, 27) + "..." : indRaw
-        table.cell(panel, 0, row, "Industry", text_color=labelColor, text_size=txtSize)
+        string indShort = str.length(indRaw) > 14 ? str.substring(indRaw, 0, 11) + "..." : indRaw
         table.cell(panel, 1, row, indShort, text_color=valueColor, text_size=txtSize)
         table.cell(panel, 2, row, "", text_size=txtSize)
         table.cell(panel, 3, row, "", text_size=txtSize)
@@ -188,29 +182,29 @@ if barstate.islast
 
     // === RATINGS ===
     if showRatings
-        table.cell(panel, 0, row, "── RATINGS ──", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
+        table.cell(panel, 0, row, "─ RATINGS ─", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
         table.cell(panel, 1, row, "", bgcolor=headerBg)
         table.cell(panel, 2, row, "", bgcolor=headerBg)
         table.cell(panel, 3, row, "", bgcolor=headerBg)
         row += 1
 
-        table.cell(panel, 0, row, "Composite", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 0, row, "Comp", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 1, row, str.tostring(compositeRating), text_color=getColor(compositeRating, 80, 60), text_size=txtSize)
-        table.cell(panel, 2, row, "EPS Rtg", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 2, row, "EPS", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 3, row, str.tostring(epsRatingRaw), text_color=getColor(epsRatingRaw, 80, 60), text_size=txtSize)
         row += 1
 
-        table.cell(panel, 0, row, "RS Rating", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 0, row, "RS", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 1, row, str.tostring(rsRating), text_color=getColor(rsRating, 80, 60), text_size=txtSize)
         table.cell(panel, 2, row, "SMR", text_color=labelColor, text_size=txtSize)
         color smrClr = smrScore >= 80 ? greenColor : smrScore >= 60 ? blueColor : smrScore >= 40 ? yellowColor : redColor
         table.cell(panel, 3, row, smrRating, text_color=smrClr, text_size=txtSize)
         row += 1
 
-        table.cell(panel, 0, row, "Acc/Dis", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 0, row, "A/D", text_color=labelColor, text_size=txtSize)
         color adClr = nz(udRatio) >= 1.2 ? greenColor : nz(udRatio) >= 0.8 ? yellowColor : redColor
         table.cell(panel, 1, row, accDisRating, text_color=adClr, text_size=txtSize)
-        table.cell(panel, 2, row, "U/D Vol", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 2, row, "U/D", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 3, row, fmtVal(udRatio, "#.##"), text_color=nz(udRatio) >= 1.0 ? greenColor : redColor, text_size=txtSize)
         row += 1
 
@@ -235,24 +229,24 @@ if barstate.islast
         table.cell(panel, 3, row, above200 ? "✓" : "✗", text_color=above200 ? greenColor : redColor, text_size=txtSize)
         row += 1
 
-        table.cell(panel, 0, row, "Trend Tmpl", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 0, row, "Trend", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 1, row, trendOK ? "PASS ✓" : "FAIL", text_color=trendOK ? greenColor : redColor, text_size=txtSize)
-        table.cell(panel, 2, row, "RS Line", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 2, row, "RS Ln", text_color=labelColor, text_size=txtSize)
         bool rsUp = rsLine > rsLine[20]
         table.cell(panel, 3, row, rsUp ? "▲ UP" : "▼ DN", text_color=rsUp ? greenColor : redColor, text_size=txtSize)
         row += 1
 
     // === EARNINGS ===
     if showEPS
-        table.cell(panel, 0, row, "── EARNINGS ──", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
+        table.cell(panel, 0, row, "─ EPS ─", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
         table.cell(panel, 1, row, "", bgcolor=headerBg)
         table.cell(panel, 2, row, "", bgcolor=headerBg)
         table.cell(panel, 3, row, "", bgcolor=headerBg)
         row += 1
 
-        table.cell(panel, 0, row, "Ann EPS", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 0, row, "Ann", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 1, row, fmtVal(epsAnnual, "#.##"), text_color=valueColor, text_size=txtSize)
-        table.cell(panel, 2, row, "EPS Grw", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 2, row, "Grw", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 3, row, fmtPct(epsGrowthAnn), text_color=getPctColor(nz(epsGrowthAnn)), text_size=txtSize)
         row += 1
 
@@ -281,36 +275,36 @@ if barstate.islast
         row += 1
 
         bool accel = not na(epsQChg) and not na(epsQ1Chg) and epsQChg > epsQ1Chg
-        table.cell(panel, 0, row, "EPS Accel", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 0, row, "Accel", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 1, row, accel ? "YES ✓" : "NO", text_color=accel ? greenColor : redColor, text_size=txtSize)
-        table.cell(panel, 2, row, "Rev Grw", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 2, row, "Rev", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 3, row, fmtPct(revQChg), text_color=getPctColor(nz(revQChg)), text_size=txtSize)
         row += 1
 
     // === FINANCIALS ===
     if showFinancials
-        table.cell(panel, 0, row, "── FINANCIAL ──", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
+        table.cell(panel, 0, row, "─ FIN ─", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
         table.cell(panel, 1, row, "", bgcolor=headerBg)
         table.cell(panel, 2, row, "", bgcolor=headerBg)
         table.cell(panel, 3, row, "", bgcolor=headerBg)
         row += 1
 
         color margClr = nz(margin) > 10 ? greenColor : nz(margin) > 0 ? yellowColor : redColor
-        table.cell(panel, 0, row, "Margin", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 0, row, "Mgn", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 1, row, na(margin) ? "N/A" : str.tostring(margin, "#.#") + "%", text_color=margClr, text_size=txtSize)
         color deClr = nz(debtEquity) < 0.5 ? greenColor : nz(debtEquity) < 1.0 ? yellowColor : redColor
         table.cell(panel, 2, row, "D/E", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 3, row, na(debtEquity) ? "N/A" : str.tostring(debtEquity, "#.##"), text_color=deClr, text_size=txtSize)
         row += 1
 
-        table.cell(panel, 0, row, "Rev Ann", text_color=labelColor, text_size=txtSize)
-        table.cell(panel, 1, row, na(revenueAnnual) ? "N/A" : "$" + str.tostring(revenueAnnual / 1e9, "#.##") + "B", text_color=valueColor, text_size=txtSize)
-        table.cell(panel, 2, row, "Net Inc", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 0, row, "Rev", text_color=labelColor, text_size=txtSize)
+        table.cell(panel, 1, row, na(revenueAnnual) ? "N/A" : "$" + str.tostring(revenueAnnual / 1e9, "#.#") + "B", text_color=valueColor, text_size=txtSize)
+        table.cell(panel, 2, row, "Net", text_color=labelColor, text_size=txtSize)
         table.cell(panel, 3, row, na(netIncome) ? "N/A" : "$" + str.tostring(netIncome / 1e6, "#.#") + "M", text_color=nz(netIncome) > 0 ? greenColor : redColor, text_size=txtSize)
         row += 1
 
     // === CANSLIM CHECKLIST ===
-    table.cell(panel, 0, row, "── CANSLIM ──", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
+    table.cell(panel, 0, row, "─ CANSLIM ─", text_color=blueColor, text_size=txtSize, bgcolor=headerBg)
     table.cell(panel, 1, row, "", bgcolor=headerBg)
     table.cell(panel, 2, row, "", bgcolor=headerBg)
     table.cell(panel, 3, row, "", bgcolor=headerBg)
