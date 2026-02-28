@@ -1,8 +1,8 @@
 //@version=6
-indicator("MarketSperg v1.0", overlay=true, max_labels_count=100)
+indicator("MarketMerge v1.0", overlay=true, max_labels_count=100)
 
 // ============================================================================
-// MARKETSPERG v1.0 — CANSLIM Data Panel + Chart Overlay
+// MARKETMERGE v1.0 — CANSLIM Data Panel + Chart Overlay
 // IBD-style ratings, earnings, RS line, S&P overlay, CANSLIM checklist
 // ============================================================================
 
