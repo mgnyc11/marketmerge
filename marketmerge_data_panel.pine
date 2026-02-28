@@ -12,7 +12,7 @@ bool showProfile    = input.bool(true, "Show Company Profile", group=grp_display
 bool showRatings    = input.bool(true, "Show Ratings", group=grp_display)
 bool showEPS        = input.bool(true, "Show EPS Table", group=grp_display)
 bool showFinancials = input.bool(true, "Show Financials", group=grp_display)
-string panelSize    = input.string("tiny", "Text Size", options=["tiny", "small", "normal"], group=grp_display)
+string panelSize    = input.string("small", "Text Size", options=["tiny", "small", "normal"], group=grp_display)
 
 string grp_rs = "Relative Strength"
 string rsBenchmark = input.symbol("SPY", "RS Benchmark", group=grp_rs)
